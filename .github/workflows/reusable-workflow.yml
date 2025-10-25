@@ -15,6 +15,8 @@ on:
 jobs:
     deploy:
         runs-on: ubuntu-latest
+        outputs:
+            deployment-result: ${{ steps.deployment-result.outputs.deployment-result }} 
         steps:
             - name: Deploy application
               run: echo "Deploying application..."
@@ -27,3 +29,7 @@ jobs:
             - name: Use MongoDB Secret
               run: |
                 echo "Using MongoDB username: ${{ inputs.mongo-secret-username }}"
+            - name: Output deployment result
+              id: deployment-result
+              run : echo "deployment-result='success" >> $GITHUB_OUTPUT ";"
+        
