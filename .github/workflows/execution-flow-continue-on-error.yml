@@ -1,4 +1,4 @@
-name: Website Deployment
+name: Continue  Website Deployment
 on:
   workflow_dispatch:
   push:
@@ -37,10 +37,10 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Test code
+        continue-on-error: true
         id: test-step
         run: npm run test
       - name: Upload test report
-        if: failure() && steps.test-step.outcome == 'failure'
         uses: actions/upload-artifact@v4
         with:
           name: test-report
