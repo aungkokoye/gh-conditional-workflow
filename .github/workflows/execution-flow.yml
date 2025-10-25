@@ -34,8 +34,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Test code
+        id: test-step
         run: npm run test
       - name: Upload test report
+        if: failure() && steps.test-step.outcome == 'failure'
         uses: actions/upload-artifact@v4
         with:
           name: test-report
@@ -74,3 +76,13 @@ jobs:
         run: ls
       - name: Deploy
         run: echo "Deploying..."
+  
+  report:
+    needs: [test, build, deploy]
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate report
+        run: |
+          echo "Generating report for all jobs..."
+          echo "${{ toJson(github) }}"
