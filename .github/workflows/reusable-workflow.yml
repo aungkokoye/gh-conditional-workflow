@@ -7,11 +7,10 @@ on:
                 required: false
                 default: 'dist-files'
                 type: string 
+        secrets:
             mongo-secret-username:
                 description: 'MongoDB Username'
                 required: false
-                default: 'root'
-                type: string
 
 jobs:
     deploy:
