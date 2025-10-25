@@ -71,6 +71,10 @@ jobs:
   deploy:
     needs: build
     uses: ./.github/workflows/reusable-workflow.yml
+    with:
+      artifact-name: 'dist-files'
+    secrets:
+      mongo-secret-username: ${{ secrets.MONGO_USERNAME }}  
   
   report:
     needs: [deploy, lint]

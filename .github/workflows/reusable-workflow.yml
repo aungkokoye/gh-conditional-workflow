@@ -1,9 +1,30 @@
 name: reusable-workflow
 on:
     workflow_call:
+        inputs:
+            artifact-name:
+                description: 'Name of the artifact to deploy'
+                required: false
+                default: 'dist-files'
+                type: string 
+            mongo-secret-username:
+                description: 'MongoDB Username'
+                required: false
+                default: 'root'
+                type: string
+
 jobs:
     deploy:
         runs-on: ubuntu-latest
         steps:
             - name: Deploy application
               run: echo "Deploying application..."
+            - name: Get build artifacts
+              uses: actions/download-artifact@v4
+              with:
+                name: ${{ inputs.artifact-name }}
+            - name: Output contents
+              run: ls
+            - name: Use MongoDB Secret
+              run: |
+                echo "Using MongoDB username: ${{ inputs.mongo-secret-username }}"
