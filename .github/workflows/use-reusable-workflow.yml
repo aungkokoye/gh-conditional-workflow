@@ -81,7 +81,7 @@ jobs:
     steps:
       - name: Print deployment outcome
         run: |
-          echo "Deployment Result: ${{ needs.deploy.outputs.deployment-result }}"
+          echo "Deployment Result: ${{ needs.deploy.outputs.result }}"
   
   report:
     needs: [deploy, lint]

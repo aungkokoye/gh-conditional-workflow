@@ -11,12 +11,15 @@ on:
             mongo-secret-username:
                 description: 'MongoDB Username'
                 required: false
-
+        outputs:
+            result: 
+                description: 'Outcome of the deployment'
+                value: ${{ jobs.deploy.outputs.outcome}}
 jobs:
     deploy:
         runs-on: ubuntu-latest
         outputs:
-            deployment-result: ${{ steps.deployment-result.outputs.deployment-result }} 
+          outcome: ${{ steps.deploy-result.outputs.deployment-result }} 
         steps:
             - name: Deploy application
               run: echo "Deploying application..."
@@ -30,6 +33,6 @@ jobs:
               run: |
                 echo "Using MongoDB username: ${{ inputs.mongo-secret-username }}"
             - name: Output deployment result
-              id: deployment-result
+              id: deploy-result
               run : echo "deployment-result='success" >> $GITHUB_OUTPUT ";"
         
