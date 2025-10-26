@@ -34,5 +34,5 @@ jobs:
                 echo "Using MongoDB username: ${{ inputs.mongo-secret-username }}"
             - name: Output deployment result
               id: deploy-result
-              run : echo "deployment-result='success" >> $GITHUB_OUTPUT ";"
+              run : echo "deployment-result=success" >> $GITHUB_OUTPUT ";"
         
